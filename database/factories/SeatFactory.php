@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Booking;
+use App\Models\Flight;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,11 @@ class SeatFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'flight_id' => Flight::factory(),
+            'seat_number' => $this->faker->unique()->bothify('##??'),
+            'booking_id' => Booking::factory(),
+            'class' => $this->faker->randomElement(['Economy', 'Business', 'First']),
+            'is_available' => $this->faker->boolean(80),
         ];
     }
 }

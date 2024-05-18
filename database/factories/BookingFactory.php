@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Flight;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class BookingFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory(),
+            'flight_id' => Flight::factory(),
+            'status' => fake()->randomElement(['confirmed', 'cancelled', 'pending']),
+            'total_price' => fake()->randomFloat(2, 100, 2000),
         ];
     }
 }

@@ -26,6 +26,10 @@ class Booking extends Model
     {
         return $this->belongsTo(Flight::class);
     }
+    public function seats()
+    {
+        return $this->hasMany(Seat::class);
+    }
 
     // Example Query Builder Method
     public function scopeConfirmed($query)

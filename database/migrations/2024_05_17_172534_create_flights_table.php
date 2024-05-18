@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
-            $table->string('airline_id')->constrained('airports')->onDelete('cascade');
+            $table->string('airline_id')->constrained('airlines')->onDelete('cascade');
             $table->string('flight_number');
             $table->string('origin');
             $table->string('destination');
@@ -21,6 +21,7 @@ return new class extends Migration
             $table->dateTime('arrival_time');
             $table->decimal('price', 8, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

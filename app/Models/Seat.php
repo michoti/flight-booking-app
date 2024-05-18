@@ -14,6 +14,7 @@ class Seat extends Model
     protected $fillable = [
         'flight_id',
         'seat_number',
+        'booking_id',
         'class',
         'is_available',
     ];
@@ -21,6 +22,11 @@ class Seat extends Model
     public function flight()
     {
         return $this->belongsTo(Flight::class);
+    }
+
+    public function booking()
+    {
+        return $this->belongsTo(Booking::class);
     }
 
     // Example Query Builder Method

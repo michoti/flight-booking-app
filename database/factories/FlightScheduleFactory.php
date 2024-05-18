@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Flight;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class FlightScheduleFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'flight_id' => Flight::factory(),
+            'departure_time' => $this->faker->dateTimeBetween('+1 days', '+1 weeks'),
+            'arrival_time' => $this->faker->dateTimeBetween('+1 weeks', '+2 weeks'),
         ];
     }
 }

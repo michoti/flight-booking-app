@@ -25,8 +25,12 @@ class Flight extends Model
     {
         return $this->hasMany(Seat::class);
     }
+    public function airline()
+    {
+        return $this->belongsTo(Airline::class);
+    }
 
-    public function schedules()
+    public function flightSchedules()
     {
         return $this->hasMany(FlightSchedule::class);
     }
