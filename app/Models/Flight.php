@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Flight extends Model
 {
 
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $fillable = [
         'airline',
@@ -20,6 +21,13 @@ class Flight extends Model
         'arrival_time',
         'price',
     ];
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'flight_number' => $this->flight_number,
+        ];
+    }
 
     public function seats()
     {
