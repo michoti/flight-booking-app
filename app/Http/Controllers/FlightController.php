@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\Contracts\FlightRepositoryInterface;
+use App\Repositories\Concrete\FlightRepository;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class FlightController extends Controller
 {
     protected $flightRepository;
 
-    public function __construct(FlightRepositoryInterface $flightRepository)
+    public function __construct(FlightRepository $flightRepository)
     {
         $this->flightRepository = $flightRepository;
     }
@@ -17,7 +18,10 @@ class FlightController extends Controller
     public function index()
     {
         $flights = $this->flightRepository->getAllFlights();
-        return view('flights.index', compact('flights'));
+
+        return Inertia::render('Flight', [
+            'flights' => $flights,
+        ]);
     }
 
     public function show($id)

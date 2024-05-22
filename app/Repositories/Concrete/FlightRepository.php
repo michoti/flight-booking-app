@@ -3,13 +3,13 @@
 namespace App\Repositories\Concrete;
 
 use App\Models\Flight;
-use App\Repositories\Contracts\FlightRepositoryInterface;
+use App\Repositories\Contract\FlightRepositoryInterface;
 
 class FlightRepository implements FlightRepositoryInterface
 {
     public function getAllFlights()
     {
-        return Flight::with(['flight_number', 'origin', 'destination'])->get();
+        return Flight::all();
     }
 
     public function findFlightById($id)

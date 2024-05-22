@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Repositories\Concrete\FlightRepository;
-use App\Repositories\Contracts\FlightRepositoryInterface;
+use App\Repositories\Contract\FlightRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
