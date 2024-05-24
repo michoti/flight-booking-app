@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
 use Laravel\Scout\Searchable;
 
 class Flight extends Model
@@ -22,10 +24,14 @@ class Flight extends Model
         'price',
     ];
 
+    #[SearchUsingPrefix(['origin', 'destination'])]
+    #[SearchUsingFullText(['flight_number'])]
     public function toSearchableArray(): array
     {
         return [
             'flight_number' => $this->flight_number,
+            'origin' => $this->origin,
+            'destination' => $this->destination,
         ];
     }
 

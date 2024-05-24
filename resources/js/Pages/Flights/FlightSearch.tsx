@@ -1,113 +1,61 @@
 import { useEffect, FormEventHandler } from 'react';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
 import PrimaryButton from '@/Components/PrimaryButton';
 import TextInput from '@/Components/TextInput';
 import { Head, Link, useForm } from '@inertiajs/react';
 
 export default function FlightSearch() {
-    const { data, setData, post, processing, errors, reset } = useForm({
-        name: '',
-        email: '',
-        password: '',
-        password_confirmation: '',
+    const { data, setData, post, processing, reset } = useForm({
+        origin: '',
+        destination: '',
     });
 
     useEffect(() => {
         return () => {
-            reset('password', 'password_confirmation');
+            reset('origin', 'destination');
         };
     }, []);
 
     const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+        e.preventDefault();        
 
-        post(route('register'));
+        post(route('flight.search'), {data: JSON.stringify(data, null, 2)});
     };
 
     return (
 
             <form onSubmit={submit}>
-                <div>
-                    <InputLabel htmlFor="name" value="Name" />
+                <div className='flex items-center'>
 
-                    <TextInput
-                        id="name"
-                        name="name"
-                        value={data.name}
+                    <div className="space-x-2 flex items-center justify-between">
+                        <TextInput
+                        id="origin"
+                        name="origin"
+                        value={data.origin}
                         className="mt-1 block w-full"
-                        autoComplete="name"
+                        autoComplete="origin"
+                        placeholder='origin'
                         isFocused={true}
-                        onChange={(e) => setData('name', e.target.value)}
+                        onChange={(e) => setData('origin', e.target.value)}
                         required
-                    />
-
-                    <InputError message={errors.name} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="email" value="Email" />
-
-                    <TextInput
-                        id="email"
-                        type="email"
-                        name="email"
-                        value={data.email}
-                        className="mt-1 block w-full"
-                        autoComplete="username"
-                        onChange={(e) => setData('email', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.email} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
-
-                    <TextInput
-                        id="password"
-                        type="password"
-                        name="password"
-                        value={data.password}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password} className="mt-2" />
-                </div>
-
-                <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
-
-                    <TextInput
-                        id="password_confirmation"
-                        type="password"
-                        name="password_confirmation"
-                        value={data.password_confirmation}
-                        className="mt-1 block w-full"
-                        autoComplete="new-password"
-                        onChange={(e) => setData('password_confirmation', e.target.value)}
-                        required
-                    />
-
-                    <InputError message={errors.password_confirmation} className="mt-2" />
-                </div>
-
-                <div className="flex items-center justify-end mt-4">
-                    <Link
-                        href={route('login')}
-                        className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                        Already registered?
-                    </Link>
-
+                        />
+                        <p> to </p>
+                        <TextInput
+                            id="destination"
+                            name="destination"
+                            value={data.destination}
+                            className="mt-1 block w-full"
+                            autoComplete="destination"
+                            placeholder='destination'
+                            isFocused={true}
+                            onChange={(e) => setData('destination', e.target.value)}
+                            required
+                        />
+                    </div>
                     <PrimaryButton className="ms-4" disabled={processing}>
-                        Register
+                        Search
                     </PrimaryButton>
-                </div>
+                </div>                
+                
             </form>
         
     );

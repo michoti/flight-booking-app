@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\FlightResource;
 use App\Repositories\Concrete\FlightRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class FlightController extends Controller
@@ -33,7 +34,8 @@ class FlightController extends Controller
 
     public function search(Request $request)
     {
-        $criteria = $request->only(['destination', 'origin', 'flight_number']);
+        Log::info($request);
+        $criteria = $request->only(['destination', 'origin']);
         $flights = $this->flightRepository->searchFlight($criteria, 5);
         return response()->json($flights);
     }

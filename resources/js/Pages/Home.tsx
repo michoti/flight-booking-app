@@ -1,7 +1,7 @@
-import { Link, Head, usePage } from '@inertiajs/react';
-import { Flight, PageProps } from '@/types';
-import { useState } from 'react';
+import { Head, usePage } from '@inertiajs/react';
+import { Flight } from '@/types';
 import GuestLayout from '@/Layouts/GuestLayout';
+import FlightSearch from './Flights/FlightSearch';
 
 interface Props {
     flights: Flight[];
@@ -9,14 +9,14 @@ interface Props {
 
 const FlightPage: React.FC<Props> = () => {
     const { flights } = usePage<Props>().props;
-    //  const [query, setQuery] = useState('');
-    //  const [flights, setFlights] = useState<Flight[]>([]);
     return (
         <>
         <GuestLayout>
             <Head title="Home" />
             <div className="">
                 Flights Booking Main Page
+
+                <FlightSearch />
 
 
                 {/* Flight Cards */}
@@ -26,10 +26,6 @@ const FlightPage: React.FC<Props> = () => {
                     </li>
                 ))}
                 {/* Flight Cards */}
-
-                {/* Footer */}
-                
-                {/* Footer */}
            
                 
             </div>
