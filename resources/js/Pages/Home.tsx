@@ -3,12 +3,11 @@ import { Flight } from '@/types';
 import GuestLayout from '@/Layouts/GuestLayout';
 import FlightSearch from './Flights/FlightSearch';
 
-interface Props {
+interface FlightPageProps {
     flights: Flight[];
 }
 
-const FlightPage: React.FC<Props> = () => {
-    const { flights } = usePage<Props>().props;
+const FlightPage: React.FC<FlightPageProps> = ({ flights }) => {
     return (
         <>
         <GuestLayout>
@@ -16,15 +15,15 @@ const FlightPage: React.FC<Props> = () => {
             <div className="">
                 Flights Booking Main Page
 
-                <FlightSearch />
+                <FlightSearch flights={flights} />
 
 
                 {/* Flight Cards */}
-                {flights.data.map((flight: Flight) => (
+                {/* {flights.map((flight: Flight) => (
                     <li key={flight.id}>
                         {flight.flightNumber}: {flight.origin} to {flight.destination} ({flight.departureTime} - {flight.arrivalTime})
                     </li>
-                ))}
+                ))} */}
                 {/* Flight Cards */}
            
                 

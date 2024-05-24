@@ -33,10 +33,18 @@ class FlightController extends Controller
     }
 
     public function search(Request $request)
-    {
-        Log::info($request);
-        $criteria = $request->only(['destination', 'origin']);
-        $flights = $this->flightRepository->searchFlight($criteria, 5);
+    {   
+        // $request->only(['destination', 'origin']);
+
+        $dataString = $request->input('data');
+        Log::info($dataString);
+
+        $data = json_decode($dataString, true);
+
+        Log::info($data);
+
+        $flights = $this->flightRepository->searchFlight($data, 5);
+
         return response()->json($flights);
     }
 }
