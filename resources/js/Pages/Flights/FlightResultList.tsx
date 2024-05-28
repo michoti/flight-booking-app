@@ -8,6 +8,7 @@ const FlightResultList: React.FC<SearchResultProps> = ({ flights }) => {
     return (
         <>
             Result List 
+            {JSON.stringify(flights)}
 
         </>
     );

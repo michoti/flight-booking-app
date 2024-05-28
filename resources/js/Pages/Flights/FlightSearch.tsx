@@ -1,7 +1,8 @@
 import TextInput from '@/Components/TextInput';
 import FlightResultList from './FlightResultList';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Flight } from '@/types';
+import PrimaryButton from '@/Components/PrimaryButton';
 
 interface FlightSearchProps {
     flights: Flight[];
@@ -9,32 +10,46 @@ interface FlightSearchProps {
 
 
 const FlightSearch: React.FC<FlightSearchProps> = ({ flights }) => {
-    const [filteredData, setFilteredData] = useState([]);
-    const [data, setData] = useState({
-        origin: ''
-    });
+    const [filteredData, setFilteredData] = useState<Flight[]>([]);
+    // const [data, setData] = useState({
+    //     origin: ''
+    // });
+    const [origin, setOrigin] = useState('');
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
-    };
+    // console.log(flights)
+
+    // const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    //     const { name, value } = event.target;
+    //     setData(prevData => ({
+    //         ...prevData,
+    //         [name]: value
+    //     }));
+    //     console.log(data)
+    // };
 
     const handleFilter = () => {
-        let result = flights.filter((data) => {
+        if (!Array.isArray(flights.data)) {
+            console.error("flights is not an array" , flights.data);
+            return;
+        }
+        let result = flights.data.filter((data) => {
+            // console.log(data)
             if(data &&
-               data.origin 
+               data.origin &&
+               data.origin.toLowerCase()
+                   .includes(origin.trim().toLowerCase())
             ){
                 return data;
             }
         });
+
+        setFilteredData(result);
+        console.log(result)
     }  
     
     // useEffect(() => {
     //     handleFilter();
-    // }, [data]);
+    // }, []);
     
 
     return (
@@ -43,12 +58,14 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ flights }) => {
                 <TextInput
                     id="origin"
                     name="origin"
-                    value={data.origin}
+                    // value={data.origin}
+                    value={origin}
                     className="mt-1 block w-full"
                     autoComplete="origin"
                     placeholder='origin'
                     isFocused={true}
-                    onChange={handleInputChange}
+                    // onChange={handleInputChange}
+                    onChange={(e) => setOrigin(e.target.value)}
                     required
                 />
                 {/* <p> to </p>
@@ -62,9 +79,9 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ flights }) => {
                     required
                 /> */}
             </div>
-            {/* <PrimaryButton className="ms-4">
+            <PrimaryButton className="ms-4" onClick={handleFilter}>
                 Search
-            </PrimaryButton> */}
+            </PrimaryButton>
             
         <FlightResultList flights={filteredData} /> 
         </>      
