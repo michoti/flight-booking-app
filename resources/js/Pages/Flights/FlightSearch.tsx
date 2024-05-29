@@ -11,21 +11,17 @@ interface FlightSearchProps {
 
 const FlightSearch: React.FC<FlightSearchProps> = ({ flights }) => {
     const [filteredData, setFilteredData] = useState<Flight[]>([]);
-    // const [data, setData] = useState({
-    //     origin: ''
-    // });
-    const [origin, setOrigin] = useState('');
+    const [flightData, setFlightData] = useState({
+        origin: ''
+    });
 
-    // console.log(flights)
-
-    // const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    //     const { name, value } = event.target;
-    //     setData(prevData => ({
-    //         ...prevData,
-    //         [name]: value
-    //     }));
-    //     console.log(data)
-    // };
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target;
+        setFlightData(prevData => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
 
     const handleFilter = () => {
         if (!Array.isArray(flights.data)) {
@@ -33,11 +29,10 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ flights }) => {
             return;
         }
         let result = flights.data.filter((data) => {
-            // console.log(data)
             if(data &&
                data.origin &&
                data.origin.toLowerCase()
-                   .includes(origin.trim().toLowerCase())
+                   .includes(flightData.origin.trim().toLowerCase())
             ){
                 return data;
             }
@@ -58,14 +53,12 @@ const FlightSearch: React.FC<FlightSearchProps> = ({ flights }) => {
                 <TextInput
                     id="origin"
                     name="origin"
-                    // value={data.origin}
-                    value={origin}
+                    value={flightData.origin}
                     className="mt-1 block w-full"
                     autoComplete="origin"
                     placeholder='origin'
                     isFocused={true}
-                    // onChange={handleInputChange}
-                    onChange={(e) => setOrigin(e.target.value)}
+                    onChange={handleInputChange}
                     required
                 />
                 {/* <p> to </p>

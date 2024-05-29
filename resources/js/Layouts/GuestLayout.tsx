@@ -19,11 +19,15 @@ export default function Authenticated({ children }: PropsWithChildren) {
         };
     }, []);
 
-    const submit: FormEventHandler = (e) => {
-        e.preventDefault();
+    // const fetchData = (e) => {
+    //     e.preventDefault();
 
-        post(route('flight.search'));
-    };
+    //     post(route('flight.search', value));
+    // };
+
+    // const handleChange = (value) => {      
+    //     post(route('flight.search'));
+    // };
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -59,7 +63,7 @@ export default function Authenticated({ children }: PropsWithChildren) {
                                                     className="mt-1 block w-full"
                                                     autoComplete="username"
                                                     isFocused={true}
-                                                    onChange={(e) => setData('searchterm', e.target.value)}
+                                                    onChange={(e) => handleChange(e.target.value)}
                                                 />
                                                 <PrimaryButton className="ms-4" disabled={processing}>
                                                     search
